@@ -45,7 +45,12 @@ namespace ShoppingCart.Application.Services
 
         public void DeleteProduct(Guid id)
         {
-            _productsRepo.DeleteProduct(id);
+            if (_productsRepo.GetProduct(id) != null)
+            {
+                _productsRepo.DeleteProduct(id);
+            }
+
+   
         }
 
         public IQueryable<ProductViewModel> GetNextProducts(int noOfRecords, int starting)
@@ -91,8 +96,10 @@ namespace ShoppingCart.Application.Services
 
         public IQueryable<ProductViewModel> GetProducts()
         {
+            
+
             //this whole method will use linq to convert from Iqueryable<Product> to Iqueryable<ProductViewModel>
-            /* var list = from p in _productsRepo.GetProducts()//.Include(x=>x.Category)  
+        /*  var list = from p in _productsRepo.GetProducts()//.Include(x=>x.Category)  
                         select new ProductViewModel()
                         {
                             Id = p.Id,
@@ -103,7 +110,7 @@ namespace ShoppingCart.Application.Services
                             Category = new CategoryViewModel() { Id = p.Category.Id, Name = p.Category.Name }
                         };
 
-             return list;*/
+             return list; */
 
             //IQueryable<Product> >>>>>> IQueryable<ProductViewModel>
             return _productsRepo.GetProducts().ProjectTo<ProductViewModel>(_autoMapper.ConfigurationProvider);
