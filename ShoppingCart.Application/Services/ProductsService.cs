@@ -35,6 +35,7 @@ namespace ShoppingCart.Application.Services
                  Price = model.Price,
                  Stock = model.Stock,
                  CategoryId = model.Category.Id
+               
              };
 
              _productsRepo.AddProduct(p);
@@ -69,6 +70,8 @@ namespace ShoppingCart.Application.Services
         public ProductViewModel GetProduct(Guid id)
         {
             var p = _productsRepo.GetProduct(id);
+            
+
             if (p == null) return null;
             else
             {

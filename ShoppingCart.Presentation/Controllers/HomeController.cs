@@ -20,6 +20,9 @@ namespace ShoppingCart.Presentation.Controllers
 
         public IActionResult Index()
         {
+            
+
+
             return View();
         }
 

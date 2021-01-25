@@ -28,7 +28,7 @@ namespace ShoppingCart.Application.Services
             //3. Create order details
             //4. deduct qty from the stock
 
-            using (TransactionScope ts = new TransactionScope())
+         /*   using (TransactionScope ts = new TransactionScope())
             {
 
                 foreach (var p in products)
@@ -64,7 +64,7 @@ namespace ShoppingCart.Application.Services
 
                 ts.Complete();
             }
-
+         */
 
         }
     }

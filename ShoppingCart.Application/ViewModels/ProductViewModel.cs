@@ -29,5 +29,6 @@ namespace ShoppingCart.Application.ViewModels
         //public List<CategoryViewModel> Categories { get; set; }
 
 
+
     }
 }

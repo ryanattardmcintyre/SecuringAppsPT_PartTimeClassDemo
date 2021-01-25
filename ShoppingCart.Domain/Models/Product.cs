@@ -9,7 +9,6 @@ namespace ShoppingCart.Domain.Models
     public class Product
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
@@ -29,6 +28,9 @@ namespace ShoppingCart.Domain.Models
         public int CategoryId { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public double UnitPrice { get; set; }
+      
 
 
        // public bool Disabled { get; set; }
