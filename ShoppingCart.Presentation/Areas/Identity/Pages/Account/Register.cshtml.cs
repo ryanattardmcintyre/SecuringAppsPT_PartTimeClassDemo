@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using ShoppingCart.Application.Interfaces;
 
 namespace ShoppingCart.Presentation.Areas.Identity.Pages.Account
 {
@@ -23,17 +24,21 @@ namespace ShoppingCart.Presentation.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        public readonly IMembersService _memberService;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IMembersService memberService
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _memberService = memberService;
         }
 
         [BindProperty]
@@ -60,6 +65,20 @@ namespace ShoppingCart.Presentation.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required(AllowEmptyStrings =false, ErrorMessage ="first name cannot be left blank")]
+            [Display(Name = "First Name")]
+            [RegularExpression("^[a-zA-Z]+$", ErrorMessage ="Name must contain only letters")]
+            [StringLength(100)]
+            public string FirstName { get; set; }
+            
+            [Required(AllowEmptyStrings = false, ErrorMessage = "last name cannot be left blank")]
+            [Display(Name = "Last Name")]
+            [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Last Name must contain only letters")]
+            [StringLength(100)]
+            public string LastName { get; set; }
+
+            public string Mobile { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,6 +97,22 @@ namespace ShoppingCart.Presentation.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+
+                  /*  if (Input.FirstName == string.Empty)
+                        // throw new Exception("First name is not to be left empty");
+                        ModelState.AddModelError("FirstName", "First name is not to be left empty");
+                  */
+
+                    _memberService.AddMember(
+                        new Application.ViewModels.MemberViewModel()
+                        {
+                                 Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName
+                                 , Mobile = Input.Mobile
+                        }
+                        );
+
+
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

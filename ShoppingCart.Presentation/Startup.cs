@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart.IOC;
+using ShoppingCart.Presentation.Models;
 
 namespace ShoppingCart.Presentation
 {
@@ -33,8 +34,15 @@ namespace ShoppingCart.Presentation
                     Configuration.GetConnectionString("DefaultConnection")));
 
           
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        
+                services.AddIdentity<ApplicationUser, IdentityRole>()
+                  .AddEntityFrameworkStores<ApplicationDbContext>()
+                      .AddDefaultUI();
+
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

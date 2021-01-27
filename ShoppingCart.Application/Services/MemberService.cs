@@ -22,7 +22,8 @@ namespace ShoppingCart.Application.Services
             {
                 Email = m.Email,
                 FirstName = m.FirstName,
-                LastName = m.LastName
+                LastName = m.LastName,
+                Mobile = m.Mobile
 
             };
             _membersRepo.AddMember(member);
