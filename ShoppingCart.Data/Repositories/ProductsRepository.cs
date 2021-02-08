@@ -44,7 +44,13 @@ namespace ShoppingCart.Data.Repositories
         }
 
         public IQueryable<Product> GetProducts()
-        { 
+        {
+            /*var list = from p in _context.Products
+                           //where 
+                       select p;
+            return list;*/
+
+
             return _context.Products.Include(x=>x.Category);
         }
 

@@ -20,6 +20,7 @@ namespace ShoppingCart.Application.ViewModels
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 
+        public int CategoryId { get; set; }
 
         public CategoryViewModel Category { get; set; }
 
