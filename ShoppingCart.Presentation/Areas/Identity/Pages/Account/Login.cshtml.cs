@@ -88,7 +88,7 @@ namespace ShoppingCart.Presentation.Areas.Identity.Pages.Account
 
                     originalUserFromDb.LastLoggedIn = DateTime.Now;
 
-
+                    
                    await  _userManager.UpdateAsync(originalUserFromDb);
 
 

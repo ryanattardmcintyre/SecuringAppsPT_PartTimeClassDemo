@@ -10,13 +10,11 @@ namespace ShoppingCart.Application.ViewModels
      
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage ="Please input name of product")]
- 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        [Range(1, 100)]
+     
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 

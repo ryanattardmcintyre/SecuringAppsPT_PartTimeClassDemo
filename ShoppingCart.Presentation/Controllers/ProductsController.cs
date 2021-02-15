@@ -27,7 +27,7 @@ namespace ShoppingCart.Presentation.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost] 
         public IActionResult Create(CreateProductModel model)
         {
 
