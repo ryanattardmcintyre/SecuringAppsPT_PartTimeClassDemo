@@ -10,11 +10,16 @@ namespace ShoppingCart.Application.ViewModels
      
         public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        
 
+        [Required(AllowEmptyStrings =false, ErrorMessage ="Name is required")]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage ="Name is not valid. Use only letters")]
+        public string Name { get; set; }
+        
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Description is required")]
         public string Description { get; set; }
 
-     
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Pricing is required")]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
 
@@ -26,7 +31,7 @@ namespace ShoppingCart.Application.ViewModels
 
         public int Stock { get; set; }
         //public List<CategoryViewModel> Categories { get; set; }
-
+        public string Owner { get; set; }
 
 
     }

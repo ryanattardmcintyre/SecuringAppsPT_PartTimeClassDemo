@@ -38,9 +38,9 @@ namespace ShoppingCart.Presentation
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
         
-                services.AddIdentity<ApplicationUser, IdentityRole>()
+                services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount=false)
                   .AddEntityFrameworkStores<ApplicationDbContext>()
-                      .AddDefaultUI();
+                      .AddDefaultUI().AddDefaultTokenProviders(); ;
 
 
             services.AddControllersWithViews();
