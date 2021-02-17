@@ -32,6 +32,18 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["info"] != null)
+            {
+                <div class="alert alert-info" role="alert">
+                    @TempData["info"]
+                </div>
+            }
+            @if (TempData["warning"] != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @TempData["warning"]
+                </div>
+            }
             @RenderBody()
         </main>
     </div>

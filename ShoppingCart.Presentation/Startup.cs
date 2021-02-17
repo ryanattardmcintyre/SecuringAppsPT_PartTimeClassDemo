@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart.IOC;
 using ShoppingCart.Presentation.Models;
+using Microsoft.Extensions.Logging;
 
 namespace ShoppingCart.Presentation
 {
@@ -76,7 +77,7 @@ namespace ShoppingCart.Presentation
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -96,6 +97,9 @@ namespace ShoppingCart.Presentation
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            loggerFactory.AddFile($"Logs/mylog-{DateTime.Now.ToString("dd-MM-yyyy")}.txt");
+
 
             app.UseEndpoints(endpoints =>
             {

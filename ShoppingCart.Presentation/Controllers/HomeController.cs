@@ -20,6 +20,21 @@ namespace ShoppingCart.Presentation.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("User just accessed Index method");
+            try
+            {
+                throw new Exception("thrown on purpose");
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    _logger.LogError(ex.Message);
+                }
+                catch { }
+
+               return  RedirectToAction("ShowError", new { message = "Error occurred" });
+            }
             
 
 
@@ -35,6 +50,13 @@ namespace ShoppingCart.Presentation.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+        public IActionResult ShowError(string message)
+        {
+            TempData["error"] = message;
+            return View();
         }
     }
 }
