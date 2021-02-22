@@ -13,6 +13,7 @@ using ShoppingCart.Application.Interfaces;
 using ShoppingCart.Application.ViewModels;
 using ShoppingCart.Presentation.ActionFilters;
 using ShoppingCart.Presentation.Models;
+using ShoppingCart.Presentation.Utilities;
 
 namespace ShoppingCart.Presentation.Controllers
 {
@@ -115,9 +116,15 @@ namespace ShoppingCart.Presentation.Controllers
             return View(list);
         }
 
-        public IActionResult Details(Guid id)
+        public IActionResult Details(string id)
         {
-            var p = _prodService.GetProduct(id);
+            //decryption must take place
+            id = id.Replace("|", "/").Replace("_", "+").Replace("$", "=");
+            string output = Encryption.SymmetricDecrypt(id);
+
+            Guid productId = new Guid(output);
+
+            var p = _prodService.GetProduct(productId);
             return View(p);
         }
 

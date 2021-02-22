@@ -59,7 +59,11 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.Id   }) |
-                @Html.ActionLink("Details", "Details", new {   id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new {   id= 
+          
+               ShoppingCart.Presentation.Utilities.Encryption.SymmetricEncrypt(item.Id.ToString()).Replace("/","|").Replace("+","_").Replace("=","$")
+           
+           }) |
                 @if (User.IsInRole("Admin"))
                 {
                     Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ });
